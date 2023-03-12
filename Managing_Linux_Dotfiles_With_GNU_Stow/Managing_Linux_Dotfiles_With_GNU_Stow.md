@@ -8,11 +8,8 @@ tags:
   - 5tag
   - 6 tag
   - 7
-date: 2022-08-23
-summary: Sed ut perspiciatis unde omnis iste natus error sit voluptatem 
-accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae 
-ab illo inventore veritatis et quasi architecto beatae vitae dicta 
-sunt explicabo. 
+date: 08-23-2022
+summary: Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. 
 ---
 
 [GNU Stow](https://www.gnu.org/software/stow/) is a symlink manager. Its 
@@ -27,8 +24,6 @@ See an example configuration on my
 ## How it Works
 I keep all of my config files in a single git repository. This makes setting 
 up new systems incredibly simple.
-
-<br/>
 
 Stow is easier to understand using an example.
 
@@ -129,6 +124,8 @@ do
 done
 ```
 
+![test image](/images/hero.jpg)
+
 Test katex:
 
-$$ \small d(p, q) =\sum_{i=0}^{n}\sqrt{(p_{i} - q_{i})^{2}} $$
+$$ d(p, q) =\sum_{i=0}^{n}\sqrt{(p_{i} - q_{i})^{2}} $$
