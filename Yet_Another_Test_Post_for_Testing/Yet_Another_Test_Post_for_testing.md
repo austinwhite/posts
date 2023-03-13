@@ -8,7 +8,7 @@ tags:
   - 5tag
   - 6 tag
   - 7
-date: 08-23-2022
+date: 08-24-2022
 summary: Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. 
 ---
 
