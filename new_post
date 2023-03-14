@@ -10,7 +10,7 @@ if [ "$#" -lt 1 ]; then
     exit 1
 fi
 
-NAME=`echo $1 | sed -e 's/ /_/g'`
+NAME=`echo $1 | sed -e 's/ /-/g'`
 MD_FILE=$NAME/$NAME.md
 
 mkdir -p $NAME/images
