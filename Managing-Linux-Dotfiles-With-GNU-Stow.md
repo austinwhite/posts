@@ -1,82 +1,81 @@
 ---
 title: Managing Linux Dotfiles With GNU Stow
 tags:
-  - linux
-  - test tag
-  - another test tag
-  - tagtag
-  - 5tag
-  - 6 tag
-  - 7
-date: 08-23-2022
-summary: Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. 
+  - placeholder
+date: 04-05-2023
+summary: Looking for an easier way to manage your Linux configuration files? Try GNU Stow, the command-line tool that simplifies organization, version control, and deployment.
 ---
 
-[GNU Stow](https://www.gnu.org/software/stow/) is a symlink manager. Its 
-intended use to manage multiple versions of the same software on a single 
-system, however it's perfectly suited to manage Linux configuration files 
-as well. 
+[GNU Stow](https://www.gnu.org/software/stow/) is a command-line tool that simplifies the management of configuration files on Linux systems. Instead of manually copying or symlinking files to their respective locations in the file system, Stow creates symbolic links from a central location to the correct destination folders. This allows for easier organization and version control of configuration files, and makes it simpler to apply changes across multiple machines or users. Additionally, using Stow makes it easier to remove configuration files cleanly, as all related files are located in one directory.
 
 See an example configuration on my
 [GitHub](https://github.com/austinwhite/dotfiles)
-(Managed with GNU Stow at the time of this write-up)
 
-## How it Works
-I keep all of my config files in a single git repository. This makes setting 
-up new systems incredibly simple.
+## Overview
+### Example Directory Structure
+    dotfiles
+    ├─ nvim
+    │  └─ .confg
+    │     └─ nvim
+    │        └─ init.lua
+    ├─ git
+    │  ├─ .gitconfig
+    │  └─ .config
+    │     └─ git
+    │        └─ .global-gitignore
+    ├─ scripts
+    │  └─ .local
+    │     └─ bin
+    │        ├─ script1
+    │        ├─ script2
+    │        └─ scriptN
+    └─ starship
+       └─ .config
+          └─ starship.toml
 
-Stow is easier to understand using an example.
+When run from the root directory stow will create symlinks from your home directory to each terminating directory/file in _dotfiles_. Think of the 2nd level directory names (nvim, git, scripts, starship) as your home directory.
 
-Say you want your _.vimrc_ file at the path _$HOME/.config/vim/.vimrc_
+For example stow would create the following sym links for the directory structure above. Each pointing to their respective directories/files in _dotfiles_.
 
-To accomplish this the following file structure would exist in your dotfiles
-repo.
+    ~/.config/nvim/
+    ~/.gitconfig
+    ~/.config/git/
+    ~/.config/.starship.toml
+    ~/.local/bin/
 
-```
-vim/.config/vim/.vimrc
-```
+**NOTE**: The paths laid out in _dotfiles_ don't need to exist. When you unstow if any subdirectory in that path is being by an item not under stow management, that path will be created for you and those items will remain intact.
 
-The first level directroy can be named anything, stow will treat it as if
-it's your home directory and create a symlink to wherever that path
-terminates. This could be a single file or a directory that contains 1 or 
-more files.
+## Deployment
+Deploy your configurations by running `'stow /*'` to stow all
+directories or `'stow [dir name]'` to stow an individual directroy.
 
-### Deployment Scripts
-You can deploy your configurations by running _'stow /*'_ to stow all
-directories or _'stow [dir name]'_ to stow an individual directroy. I prefer 
-a more granular approach so I've written my own scripts.
+I created some wrapper scripts to make adding and removing configurations on the fly more easy.
 
-**Environment Setup**
+### Environment Setup
 
-Create a file with a space separated list at the root of the directory 
-containing your files to be stowed. You can add and remove any directory 
-on the fly depending on your current use case.
+Create a file containing a space separated list at the root of the directory containing the directory names you want stowed. You can add and remove any directory on the fly depending on your current use case and restow.
 
-```
-file:
-stow-dirs.txt
+    filename:
+    stow-dirs.txt
 
-contents:
-dir1 dir2 dir3 dirN
-```
+    contents:
+    dir1 dir2 dir3 dirN
 
-These scripts will bootstrap stow using pacman if it's not installed on your
-system. If you don't use an Arch based distro switch that statement out 
-with the package manager of your choice.
+These scripts will bootstrap stow it's not already installed on your system. I always have the path to my dotfiles saved in an environment varialbe, if that doesn't exist on your system, the scripts will still work.
 
-I set an environment variable $DOTFILES to the path where my dotfiles git 
-repository resides.
-
-**Stow Script**
+### Stow Script
 
 ```bash
 #!/usr/bin/env bash
 
-if ! command -v stow $> /dev/null
+if ! command -v stow $>/dev/null
 then
     echo "command not found: stow"
-    echo "bootstrapping gnu stow..."
-    sudo pacman -S stow
+    echo "installing gnu stow..."
+    sudo pacman -S stow 2>/dev/null
+    sudo apt-get install stow 2>/dev/null
+    sudo yum install stow 2>/dev/null
+    sudo brew install stow 2>/dev/null 
 fi
 
 if [[ -z "${DOTFILES}" ]]; then
@@ -96,7 +95,7 @@ do
 done
 ```
 
-**Unstow Script**
+### Unstow Script
 
 ```bash
 #!/usr/bin/env bash
@@ -104,8 +103,11 @@ done
 if ! command -v stow $> /dev/null
 then
     echo "command not found: stow"
-    echo "bootstrapping gnu stow..."
-    sudo pacman -S stow
+    echo "installing gnu stow..."
+    sudo pacman -S stow 2>/dev/null
+    sudo apt-get install stow 2>/dev/null
+    sudo yum install stow 2>/dev/null
+    sudo brew install stow 2>/dev/null 
 fi
 
 if [[ -z "${DOTFILES}" ]]; then
@@ -124,10 +126,3 @@ do
 done
 ```
 
-Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit amet consectetur adipisci[ng] velit, sed quia non numquam [do] eius modi tempora inci[di]dunt, ut labore et dolore magnam aliquam quaerat voluptatem. 
-
-![test image](images/Managing-Linux-Dotfiles-With-GNU-Stow/hero.jpg)
-
-Test katex:
-
-$$ d(p, q) =\sum_{i=0}^{n}\sqrt{(p_{i} - q_{i})^{2}} $$
