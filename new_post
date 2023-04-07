@@ -18,7 +18,7 @@ mkdir -p images/$NAME
 echo "created directory: images/$NAME"
 
 echo "---" >> $MD_FILE
-echo "title: title" >> $MD_FILE
+echo "title: $1" >> $MD_FILE
 echo "tags:" >> $MD_FILE
 echo "  - tag" >> $MD_FILE
 echo "date: MM-DD-YYYY" >> $MD_FILE
