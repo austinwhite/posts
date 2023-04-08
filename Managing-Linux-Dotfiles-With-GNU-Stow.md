@@ -6,12 +6,12 @@ date: 04-05-2023
 summary: Looking for an easier way to manage your Linux configuration files? Try GNU Stow, the command-line tool that simplifies organization, version control, and deployment.
 ---
 
+## Overview
 [GNU Stow](https://www.gnu.org/software/stow/) is a command-line tool that simplifies the management of configuration files on Linux systems. Instead of manually copying or symlinking files to their respective locations in the file system, Stow creates symbolic links from a central location to the correct destination folders. This allows for easier organization and version control of configuration files, and makes it simpler to apply changes across multiple machines or users. Additionally, using Stow makes it easier to remove configuration files cleanly, as all related files are located in one directory.
 
 See an example configuration on my
 [GitHub](https://github.com/austinwhite/dotfiles)
 
-## Overview
 ### Example Directory Structure
     dotfiles
     ├─ nvim
@@ -46,8 +46,8 @@ For example stow would create the following sym links for the directory structur
 **NOTE**: The paths laid out in _dotfiles_ don't need to exist. When you unstow if any subdirectory in that path is being by an item not under stow management, that path will be created for you and those items will remain intact.
 
 ## Deployment
-Deploy your configurations by running `'stow /*'` to stow all
-directories or `'stow [dir name]'` to stow an individual directroy.
+Deploy your configurations by running _stow /*_ to stow all
+directories or _stow [dir name]_ to stow an individual directory.
 
 I created some wrapper scripts to make adding and removing configurations on the fly more easy.
 
@@ -61,7 +61,7 @@ Create a file containing a space separated list at the root of the directory con
     contents:
     dir1 dir2 dir3 dirN
 
-These scripts will bootstrap stow it's not already installed on your system. I always have the path to my dotfiles saved in an environment varialbe, if that doesn't exist on your system, the scripts will still work.
+These scripts will bootstrap stow it's not already installed on your system. I always have the path to my dotfiles saved in an environment variable, if that doesn't exist on your system, the scripts will still work.
 
 ### Stow Script
 
