@@ -2,8 +2,8 @@
 title: Building an Elegant and Highly Modular Neovim Config
 tags:
   - tag
-date: 04-06-2023
-summary: You wont find a better way to configure neovim. Structure your config in such a way that adding and removing features on the fly becomes trival. Written fully in lua because vimscript is lame.
+date: 04-26-2023
+summary: You wont find a better way to configure neovim. Written in 100% lua because vimscript is lame.
 ---
 
 ## Overview
